@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mofongos &mdash; Google Search Ads Performance Review</title>
+<style>
+  :root {
+    --navy:            #001f52;
+    --navy-deep:       #000a1f;
+    --heading-navy:    #0a2540;
+    --brand-blue:      #1B51A4;
+    --accent-blue:     #3B82F6;
+    --accent-cyan:     #06B6D4;
+
+    --ink:             #0a1628;
+    --ink-body:        #3b4563;
+    --ink-muted:       #6b7a99;
+    --ink-subtle:      #8b95ad;
+
+    --surface:         #ffffff;
+    --surface-raised:  #f8f9fc;
+    --surface-cool:    #f0f3fa;
+
+    --border:          #e2e8f0;
+    --border-subtle:   #eef2f7;
+
+    --series:          #1B51A4;
+    --series-soft:     rgba(27, 81, 164, 0.13);
+    --grid:            #e8edf6;
+
+    --good:            #1d7a44;
+    --good-bg:         #e7f4ec;
+    --watch:           #9a6207;
+    --watch-bg:        #fdf4e3;
+
+    --font-head: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --chart-surface:   #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink-body);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-head);
+    color: var(--heading-navy);
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    background: linear-gradient(165deg, #020817 0%, #001131 35%, #001f52 68%, #0c2d6b 100%);
+    padding: 56px 32px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .masthead::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .masthead-orb {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    right: -180px;
+    top: -280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.16) 0%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .masthead-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #38bdf8;
+    margin: 0 0 14px;
+  }
+
+  .masthead h1 {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    margin-bottom: 18px;
+  }
+
+  .masthead .standfirst {
+    color: #b4c6e0;
+    font-size: 1.08rem;
+    max-width: 640px;
+    margin: 0 0 30px;
+  }
+
+  .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255,255,255,0.11);
+  }
+
+  .meta-item .k {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 3px;
+  }
+
+  .meta-item .v {
+    font-size: 14px;
+    color: #dce6f5;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- shell ---------- */
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px 96px;
+  }
+
+  section { padding-top: 68px; }
+  section.tight { padding-top: 52px; }
+
+  .sec-head { margin-bottom: 30px; }
+
+  .sec-head .eyebrow { color: var(--accent-blue); }
+
+  .sec-head h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 10px;
+  }
+
+  .sec-head p {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 68ch;
+  }
+
+  h3 {
+    font-size: 1.16rem;
+    font-weight: 700;
+    line-height: 1.32;
+    margin-bottom: 8px;
+  }
+
+  p { margin: 0 0 1em; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ---------- kpi band ---------- */
+
+  .kpi-band {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: -34px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  }
+
+  .kpi {
+    background: var(--surface);
+    padding: 24px 22px 22px;
+  }
+
+  .kpi .label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-subtle);
+    margin-bottom: 10px;
+  }
+
+  .kpi .value {
+    font-family: var(--font-head);
+    font-size: 2.1rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kpi .value .unit {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .kpi .sub {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-top: 9px;
+    line-height: 1.45;
+  }
+
+  .delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta.up { color: var(--good); background: var(--good-bg); }
+  .delta.watch { color: var(--watch); background: var(--watch-bg); }
+
+  /* ---------- prose + callouts ---------- */
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--ink-body);
+    max-width: 68ch;
+  }
+
+  .note {
+    border-left: 3px solid var(--brand-blue);
+    padding: 4px 0 4px 18px;
+    color: var(--ink-body);
+    margin: 22px 0;
+    max-width: 66ch;
+  }
+
+  .note strong { color: var(--heading-navy); }
+
+  .note.watch { border-left-color: #d69a1e; }
+
+  /* ---------- win cards ---------- */
+
+  .wins {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .win {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0 0 22px;
+    overflow: hidden;
+  }
+
+  .win .bar {
+    height: 3px;
+    background: linear-gradient(135deg, #1B51A4, #3B82F6, #06B6D4);
+  }
+
+  .win .body { padding: 20px 22px 0; }
+
+  .win .stat {
+    font-family: var(--font-head);
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .win h3 { margin-bottom: 7px; }
+
+  .win p {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* ---------- figures ---------- */
+
+  figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px 18px;
+  }
+
+  figcaption { margin-bottom: 4px; }
+
+  figcaption .title {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--heading-navy);
+    line-height: 1.35;
+  }
+
+  figcaption .desc {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    max-width: 74ch;
+  }
+
+  .chart-host { margin-top: 16px; position: relative; }
+  .chart-host svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  .smalls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .axis-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    fill: var(--ink-subtle);
+    font-family: var(--font-body);
+  }
+
+  .tick {
+    font-size: 10.5px;
+    fill: var(--ink-subtle);
+    font-family: var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .baseline { stroke: var(--border); stroke-width: 1; }
+
+  .mark { fill: var(--series); }
+  .mark-soft { fill: var(--series-soft); }
+  .mark-line { fill: none; stroke: var(--series); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+  .dlabel {
+    font-size: 11.5px;
+    font-weight: 700;
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hit { fill: transparent; cursor: default; }
+
+  .tip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--heading-navy);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.45;
+    padding: 7px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 120ms;
+    z-index: 5;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  }
+
+  .tip.on { opacity: 1; }
+
+  .crosshair { stroke: var(--ink-subtle); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+  .crosshair.on { opacity: 1; }
+
+  .dot-focus {
+    fill: var(--series);
+    stroke: var(--chart-surface);
+    stroke-width: 2;
+    opacity: 0;
+  }
+  .dot-focus.on { opacity: 1; }
+
+  /* ---------- tables ---------- */
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 520px;
+  }
+
+  caption {
+    text-align: left;
+    font-family: var(--font-head);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--heading-navy);
+    padding-bottom: 10px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  thead th {
+    background: var(--surface-raised);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.num, th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-weight: 600;
+    color: var(--heading-navy);
+    font-size: 14px;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .pill.brand   { color: #14507c; background: #e3f0fa; }
+  .pill.intent  { color: var(--good); background: var(--good-bg); }
+  .pill.broad   { color: var(--ink-muted); background: var(--surface-cool); }
+  .pill.off     { color: var(--watch); background: var(--watch-bg); }
+
+  details.data-view {
+    margin-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 12px;
+  }
+
+  details.data-view summary {
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--brand-blue);
+    list-style: none;
+  }
+
+  details.data-view summary::-webkit-details-marker { display: none; }
+  details.data-view summary::before { content: "▸ "; }
+  details.data-view[open] summary::before { content: "▾ "; }
+  details.data-view summary:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; border-radius: 4px; }
+  details.data-view .table-wrap { margin-top: 12px; }
+
+  /* ---------- plan ---------- */
+
+  .plan {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .plan-row {
+    display: grid;
+    grid-template-columns: 44px 1fr 108px;
+    gap: 20px;
+    align-items: start;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .plan-row:last-child { border-bottom: none; }
+  .plan-row:nth-child(odd) { background: var(--surface-raised); }
+
+  .plan-row .n {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #001f52, #1B51A4);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .plan-row h3 { font-size: 1.02rem; margin-bottom: 5px; }
+  .plan-row .detail { font-size: 14px; color: var(--ink-muted); }
+  .plan-row .prio { text-align: right; padding-top: 3px; }
+
+  .prio .pill.high { color: #9a2231; background: #fbe9ec; }
+  .prio .pill.med  { color: var(--watch); background: var(--watch-bg); }
+
+  /* ---------- signature ---------- */
+
+  .sign {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 68px;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface-raised);
+  }
+
+  .sign .who {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--heading-navy);
+    font-size: 15px;
+  }
+
+  .sign .role { font-size: 13.5px; color: var(--ink-muted); }
+  .sign .src  { font-size: 12.5px; color: var(--ink-subtle); text-align: right; }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding-top: 26px;
+    font-size: 12.5px;
+    color: var(--ink-subtle);
+    max-width: 78ch;
+  }
+
+  footer p { margin-bottom: 0.6em; }
+
+  a { color: var(--brand-blue); }
+  a:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; border-radius: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  @media (max-width: 900px) {
+    .kpi-band { grid-template-columns: repeat(2, 1fr); }
+    .wins { grid-template-columns: 1fr; }
+    .smalls { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 2.3rem; }
+    .sec-head h2 { font-size: 1.65rem; }
+    main, .masthead { padding-left: 22px; padding-right: 22px; }
+    .plan-row { grid-template-columns: 36px 1fr; gap: 14px; }
+    .plan-row .prio { grid-column: 2; text-align: left; padding-top: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .kpi-band { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 1.95rem; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-orb"></div>
+  <div class="masthead-inner">
+    <p class="eyebrow">Google Search Ads &middot; Performance Review</p>
+    <h1>One in every 17 people<br>who see your ad clicks it.</h1>
+    <p class="standfirst">
+      Three months into paid search, Mofongos is earning a click-through rate roughly double
+      the restaurant benchmark, at 29&cent; a visit. The traffic is strong and the intent is
+      right. What isn't yet working is the hand-off: those clicks land on your homepage
+      rather than your ordering page, and only one online order has been tracked back to
+      the campaign.
+    </p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="k">Location</span>
+        <span class="v">North Hollywood, CA</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Campaign live since</span>
+        <span class="v">May 18, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Reporting period</span>
+        <span class="v">Jul 11 &ndash; Aug 9, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Prepared</span>
+        <span class="v">Aug 10, 2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-band">
+    <div class="kpi">
+      <div class="label">Ad spend</div>
+      <div class="value"><span class="unit">$</span>100.90</div>
+      <div class="sub">$3.30 / day budget &middot; 30 days</div>
+    </div>
+    <div class="kpi">
+      <div class="label">People who saw you</div>
+      <div class="value">5,852</div>
+      <div class="sub">ad impressions on Google</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Visits to your site</div>
+      <div class="value">352</div>
+      <div class="sub">clicks &middot; $0.29 average per click</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Click rate</div>
+      <div class="value">6.02<span class="unit">%</span></div>
+      <div class="sub">
+        <span class="delta up">&#9650; strong</span>
+        share of viewers who clicked
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="label">Online orders tracked</div>
+      <div class="value">1</div>
+      <div class="sub">
+        <span class="delta watch">needs work</span>
+        $28.98 in attributed sales
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="label">Phone calls</div>
+      <div class="value">12</div>
+      <div class="sub">calls placed directly from your ad</div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <p class="lede">
+      Over the 30 days to August 9 your campaign spent <strong>$100.90</strong> &mdash; about
+      $3.36 a day. For that, 5,852 people within an eight-mile radius saw Mofongos at the top
+      of their search results, 352 of them clicked through, and Google recorded
+      <strong>1,139 follow-up actions</strong> &mdash; menu views, directions requests, taps
+      to call and other on-site engagement.
+    </p>
+    <div class="note watch">
+      <strong>The single most valuable change we can make:</strong> your ad currently sends
+      every click to <em>mofongosrestaurant.com</em> &mdash; the homepage &mdash; instead of
+      straight to your online ordering page. Google recorded <strong>9 order starts</strong>
+      in this period but only <strong>1 completed order</strong> traced back to the ad. Cutting
+      the extra step between the click and the cart is the highest-value fix available, and it
+      costs nothing.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">What's working</p>
+      <h2>Three results worth calling out</h2>
+      <p>
+        These are the parts of the campaign that are already performing well ahead of what we
+        would expect for a neighbourhood restaurant on a small test budget.
+      </p>
+    </div>
+
+    <div class="wins">
+      <div class="win">
+        <div class="bar"></div>
+        <div class="body">
+          <div class="stat">6.02%</div>
+          <h3>An unusually high click rate</h3>
+          <p>
+            Roughly one in every 17 people who see your ad clicks it. For comparison, a
+            well-tuned restaurant search campaign typically lands between 2% and 3.5%. Your
+            ad copy and your name are resonating.
+          </p>
+        </div>
+      </div>
+      <div class="win">
+        <div class="bar"></div>
+        <div class="body">
+          <div class="stat">$0.29</div>
+          <h3>Visits are inexpensive</h3>
+          <p>
+            Twenty-nine cents to put a hungry person in your neighbourhood on your website.
+            At this rate the whole month of traffic cost about the same as two entrees.
+          </p>
+        </div>
+      </div>
+      <div class="win">
+        <div class="bar"></div>
+        <div class="body">
+          <div class="stat">1,139</div>
+          <h3>People engage once they arrive</h3>
+          <p>
+            Menu views, directions, calls and site engagement across the 30 days &mdash;
+            more than three actions for every click. Diners who find you are genuinely
+            interested; they just aren't reaching a checkout.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The month day by day</p>
+      <h2>Steady traffic on a small budget</h2>
+      <p>
+        Impressions and clicks are measured on different scales, so they're shown separately
+        rather than forced onto one axis. Impressions swing with how much search demand
+        Google chooses to show you each day; your clicks stay remarkably level at about
+        12 a day.
+      </p>
+    </div>
+
+    <div class="smalls">
+      <figure>
+        <figcaption>
+          <span class="title">Daily ad impressions</span>
+          <span class="desc">Day-to-day variation reflects a $3.30 budget being rationed across available searches.</span>
+        </figcaption>
+        <div class="chart-host" id="host-impr">
+          <div class="tip" id="tip-impr"></div>
+        </div>
+      </figure>
+      <figure>
+        <figcaption>
+          <span class="title">Daily clicks to your site</span>
+          <span class="desc">Consistent throughout the month — between 5 and 20 visits every day.</span>
+        </figcaption>
+        <div class="chart-host" id="host-clicks">
+          <div class="tip" id="tip-clicks"></div>
+        </div>
+      </figure>
+    </div>
+
+    <details class="data-view">
+      <summary>View the daily numbers</summary>
+      <div class="table-wrap">
+        <table id="daily-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col" class="num">Impressions</th>
+              <th scope="col" class="num">Clicks</th>
+              <th scope="col" class="num">Click-through rate</th>
+              <th scope="col" class="num">Spend</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Demand pattern</p>
+      <h2>When your customers are searching</h2>
+      <p>
+        Demand is firmly a lunch story. Searches build from 10am, peak hard at noon, and
+        taper through the afternoon and evening. Your ads currently run around the clock,
+        seven days a week.
+      </p>
+    </div>
+
+    <figure>
+      <figcaption>
+        <span class="title">Clicks by hour of day</span>
+        <span class="desc">Last 30 days, all days combined. Noon alone accounts for 54 of your 352 clicks — more than any two evening hours put together.</span>
+      </figcaption>
+      <div class="chart-host" id="host-hours">
+        <div class="tip" id="tip-hours"></div>
+      </div>
+    </figure>
+
+    <div class="smalls" style="margin-top:18px;">
+      <figure>
+        <figcaption>
+          <span class="title">Average clicks by day of week</span>
+          <span class="desc">Averaged per occurrence, so a window containing five Sundays doesn't flatter the weekend. Sunday and Wednesday lead; Tuesday and Thursday are the quietest.</span>
+        </figcaption>
+        <div class="chart-host" id="host-dow">
+          <div class="tip" id="tip-dow"></div>
+        </div>
+      </figure>
+
+      <figure>
+        <figcaption>
+          <span class="title">What people did after seeing your ad</span>
+          <span class="desc">1,139 follow-up actions across the 30 days. "Site engagement" is Google's catch-all for meaningful activity on the page.</span>
+        </figcaption>
+        <div class="chart-host" id="host-actions">
+          <div class="tip" id="tip-actions"></div>
+        </div>
+      </figure>
+    </div>
+
+    <div class="note">
+      <strong>Almost all of your traffic is on a phone</strong> &mdash; 341 of 352 clicks.
+      Mobile searchers click your ad at 6.10%, against 4.20% on desktop. That is exactly the
+      behaviour you want for a neighbourhood restaurant: people searching while they're out
+      and hungry. It also means the ordering experience on a phone is where the money is won
+      or lost.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Customer demand</p>
+      <h2>How people are finding you</h2>
+      <p>
+        These are the real searches that triggered your ad this month, largest first. The mix
+        is genuinely good &mdash; people are searching your name, your signature dish, and
+        "puerto rican food near me". But no exclusions have been set on this account yet, so
+        some of your budget is also reaching searches that will never become an order.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">What they searched</th>
+            <th scope="col" class="num">Visits</th>
+            <th scope="col" class="num">Spend</th>
+            <th scope="col">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">puerto rican food near me</th><td class="num">34</td><td class="num">$2.51</td><td><span class="pill intent">High intent</span></td></tr>
+          <tr><th scope="row">mofongos restaurant</th><td class="num">24</td><td class="num">$15.77</td><td><span class="pill brand">Your brand</span></td></tr>
+          <tr><th scope="row">puerto rican restaurant near me</th><td class="num">21</td><td class="num">$1.30</td><td><span class="pill intent">High intent</span></td></tr>
+          <tr><th scope="row">mofongo near me</th><td class="num">14</td><td class="num">$0.78</td><td><span class="pill intent">High intent</span></td></tr>
+          <tr><th scope="row">mofongo</th><td class="num">9</td><td class="num">$2.43</td><td><span class="pill brand">Your dish</span></td></tr>
+          <tr><th scope="row">restaurants near me</th><td class="num">9</td><td class="num">$1.19</td><td><span class="pill broad">Broad search</span></td></tr>
+          <tr><th scope="row">dominican restaurant near me</th><td class="num">7</td><td class="num">$0.69</td><td><span class="pill off">Other cuisine</span></td></tr>
+          <tr><th scope="row">food near me</th><td class="num">6</td><td class="num">$0.45</td><td><span class="pill broad">Broad search</span></td></tr>
+          <tr><th scope="row">mofongos</th><td class="num">5</td><td class="num">$3.56</td><td><span class="pill brand">Your brand</span></td></tr>
+          <tr><th scope="row">puerto rican food</th><td class="num">5</td><td class="num">$0.35</td><td><span class="pill intent">High intent</span></td></tr>
+          <tr><th scope="row">mofongo north hollywood</th><td class="num">4</td><td class="num">$2.42</td><td><span class="pill brand">Your dish</span></td></tr>
+          <tr><th scope="row">el carbonero north hollywood</th><td class="num">2</td><td class="num">$0.92</td><td><span class="pill off">Competitor</span></td></tr>
+          <tr><th scope="row">soul food restaurants near me</th><td class="num">1</td><td class="num">$2.62</td><td><span class="pill off">Off target</span></td></tr>
+          <tr><th scope="row">zankou chicken near me</th><td class="num">1</td><td class="num">$0.41</td><td><span class="pill off">Competitor</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Two patterns to act on.</strong> First, about a third of the month's spend
+      &mdash; roughly $34 &mdash; went to people already searching for Mofongos by name.
+      That traffic converts, but it is the traffic you were most likely to win anyway.
+      Second, every keyword on the account is set to Google's widest matching option with no
+      exclusions in place, which is why searches for other restaurants and other cuisines are
+      appearing at all. Both are straightforward to tighten.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Headroom</p>
+      <h2>You're being shown for 17% of the searches you could win</h2>
+      <p>
+        Google reports how much of the available search demand in your area your ad actually
+        appeared for. The gap tells us where the ceiling is &mdash; and, usefully, whether the
+        constraint is money or ad quality.
+      </p>
+    </div>
+
+    <figure>
+      <figcaption>
+        <span class="title">Share of available local searches</span>
+        <span class="desc">Of every 100 relevant searches in your area, your ad showed on 17. The larger share of the gap is lost to ad rank, not budget.</span>
+      </figcaption>
+      <div class="chart-host" id="host-is">
+        <div class="tip" id="tip-is"></div>
+      </div>
+    </figure>
+
+    <div class="note">
+      <strong>This is the reason the plan below leads with quality, not budget.</strong>
+      Only 27% of the missed searches were lost because the daily budget ran out; 56% were
+      lost because competing ads outranked yours. Raising the budget before improving ad rank
+      would buy more of the same. Tightening keywords, adding exclusions and pointing the ad
+      at a page that matches the search all improve rank at no extra cost &mdash; and make a
+      later budget increase go considerably further.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">What happens next</p>
+      <h2>Our optimization plan</h2>
+      <p>
+        No optimization work has been carried out on this campaign since it launched in May,
+        so everything below is available to us now. In priority order.
+      </p>
+    </div>
+
+    <div class="plan">
+      <div class="plan-row">
+        <div class="n">1</div>
+        <div>
+          <h3>Send clicks straight to online ordering</h3>
+          <div class="detail">
+            Repoint the ad, and the sitelinks beneath it, from the homepage to your Chowly
+            ordering page. Today a diner who clicks has to find the ordering link themselves.
+            Nine people started an order this month and one finished &mdash; removing that
+            extra step is the single biggest lever on this account.
+          </div>
+        </div>
+        <div class="prio"><span class="pill high">High priority</span></div>
+      </div>
+      <div class="plan-row">
+        <div class="n">2</div>
+        <div>
+          <h3>Add exclusions to stop wasted spend</h3>
+          <div class="detail">
+            There are currently no blocked search terms on the account. We'll exclude
+            competitor names, neighbouring cuisines that aren't yours (Salvadoran, Colombian,
+            Ecuadorian, soul food) and the very broad "restaurants near me" style searches
+            that rarely lead to an order. Every dollar saved goes back to diners who are
+            ready to buy.
+          </div>
+        </div>
+        <div class="prio"><span class="pill high">High priority</span></div>
+      </div>
+      <div class="plan-row">
+        <div class="n">3</div>
+        <div>
+          <h3>Tighten keyword matching and retire the weak ones</h3>
+          <div class="detail">
+            All 25 keywords use Google's widest match setting, and several &mdash; "caribbean
+            food", "best puerto rican food", "puerto rican food" &mdash; carry a low quality
+            score, which is what drives the ad-rank losses above. We'll move the proven terms
+            to tighter matching, pause the poor performers, and free that spend for
+            "mofongo near me" and "puerto rican food near me", which are already earning
+            clicks at well under a dollar.
+          </div>
+        </div>
+        <div class="prio"><span class="pill high">High priority</span></div>
+      </div>
+      <div class="plan-row">
+        <div class="n">4</div>
+        <div>
+          <h3>Match ad hours to your open hours</h3>
+          <div class="detail">
+            The campaign runs 24 hours a day. Overnight is a small leak today &mdash; 54
+            impressions and one click between 1am and 6am &mdash; but with demand peaking so
+            sharply at noon, weighting the schedule toward the lunch and dinner windows puts
+            more of the budget where the orders actually are.
+          </div>
+        </div>
+        <div class="prio"><span class="pill med">Medium</span></div>
+      </div>
+      <div class="plan-row">
+        <div class="n">5</div>
+        <div>
+          <h3>Build out the ad extensions</h3>
+          <div class="detail">
+            Five quick links are live (View Menu, Catering, Events, About, Contact) but there
+            is no "Order Online" link, and no callouts or highlights at all. Adding them makes
+            your ad physically larger on the results page and gives diners a direct path to
+            the cart &mdash; at no extra cost per click.
+          </div>
+        </div>
+        <div class="prio"><span class="pill med">Medium</span></div>
+      </div>
+      <div class="plan-row">
+        <div class="n">6</div>
+        <div>
+          <h3>Revisit the daily budget together</h3>
+          <div class="detail">
+            At $3.30 a day you're reaching about one in six of the relevant searches near you
+            &mdash; the demand is clearly there. Once the four changes above have had two to
+            three weeks to take effect, we'll bring you a recommendation with the numbers to
+            support it, rather than asking for more budget first.
+          </div>
+        </div>
+        <div class="prio"><span class="pill med">Medium</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">For the record</p>
+      <h2>Account setup as it stands today</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Setting</th>
+            <th scope="col">Current value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Campaign</th><td>Chowly Website Traffic 20260518 - v1 &middot; active</td></tr>
+          <tr><th scope="row">Daily budget</th><td>$3.30 ($100.90 spent over 30 days)</td></tr>
+          <tr><th scope="row">Bidding</th><td>Maximise conversions</td></tr>
+          <tr><th scope="row">Ads run</th><td>24 hours a day, every day &mdash; no schedule set</td></tr>
+          <tr><th scope="row">Area targeted</th><td>8-mile radius around the restaurant</td></tr>
+          <tr><th scope="row">Landing page</th><td>mofongosrestaurant.com &mdash; homepage, not the ordering page</td></tr>
+          <tr><th scope="row">Active keywords</th><td>25, all on Google's widest match setting</td></tr>
+          <tr><th scope="row">Blocked search terms</th><td>None</td></tr>
+          <tr><th scope="row">Search ads running</th><td>1 &middot; ad strength rated "Good"</td></tr>
+          <tr><th scope="row">Ad extensions</th><td>5 quick links, business name and logo &middot; no callouts or highlights</td></tr>
+          <tr><th scope="row">Share of available searches won</th><td>17% &mdash; 56% of the gap lost to ad rank, 27% to budget</td></tr>
+          <tr><th scope="row">Since launch (May 18 &ndash; Aug 9)</th><td>18,590 impressions &middot; 783 clicks &middot; $261.22 spent</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="sign">
+    <div>
+      <div class="who">Jesse Gorin</div>
+      <div class="role">Customer Success Manager, Chowly &middot; jgorin@chowlyinc.com</div>
+    </div>
+    <div class="src">
+      Report generated Aug 10, 2026<br>
+      Source: Google Search Ads &middot; last 30 days
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Prepared by Chowly for Mofongos &middot; August 10, 2026. Figures are pulled directly
+      from the restaurant's Google Ads account and cover July 11 to August 9, 2026 unless
+      stated otherwise. Since-launch figures run from the campaign start on May 18, 2026.
+    </p>
+    <p>
+      "Online orders tracked" counts completed orders placed through Chowly Online Ordering
+      that Google was able to attribute back to an ad click. Because the ad currently lands on
+      the homepage rather than the ordering page, this figure is likely to understate the true
+      number of orders influenced by the campaign &mdash; which is a further reason to make
+      change&nbsp;1 above. "Follow-up actions" counts menu views, directions requests, taps to
+      call, website visits and other engagement recorded by Google; these are interest signals,
+      not completed orders. Google's local action reporting can lag by several days, so the
+      final days of the period may be revised upward.
+    </p>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- data ---------------- */
+
+  var daily = [
+    { d: "Jul 11", impr: 89,  clicks: 8,  cost: 4.00 },
+    { d: "Jul 12", impr: 358, clicks: 17, cost: 4.73 },
+    { d: "Jul 13", impr: 260, clicks: 12, cost: 2.62 },
+    { d: "Jul 14", impr: 260, clicks: 9,  cost: 3.41 },
+    { d: "Jul 15", impr: 241, clicks: 12, cost: 3.53 },
+    { d: "Jul 16", impr: 61,  clicks: 7,  cost: 2.87 },
+    { d: "Jul 17", impr: 335, clicks: 15, cost: 2.80 },
+    { d: "Jul 18", impr: 120, clicks: 8,  cost: 3.94 },
+    { d: "Jul 19", impr: 208, clicks: 18, cost: 2.83 },
+    { d: "Jul 20", impr: 45,  clicks: 5,  cost: 2.82 },
+    { d: "Jul 21", impr: 180, clicks: 16, cost: 2.79 },
+    { d: "Jul 22", impr: 418, clicks: 17, cost: 1.81 },
+    { d: "Jul 23", impr: 142, clicks: 12, cost: 1.53 },
+    { d: "Jul 24", impr: 158, clicks: 7,  cost: 7.99 },
+    { d: "Jul 25", impr: 128, clicks: 11, cost: 2.11 },
+    { d: "Jul 26", impr: 166, clicks: 13, cost: 2.60 },
+    { d: "Jul 27", impr: 78,  clicks: 12, cost: 4.45 },
+    { d: "Jul 28", impr: 135, clicks: 8,  cost: 2.01 },
+    { d: "Jul 29", impr: 60,  clicks: 11, cost: 3.66 },
+    { d: "Jul 30", impr: 63,  clicks: 12, cost: 3.76 },
+    { d: "Jul 31", impr: 45,  clicks: 7,  cost: 1.72 },
+    { d: "Aug 1",  impr: 295, clicks: 20, cost: 3.99 },
+    { d: "Aug 2",  impr: 594, clicks: 18, cost: 1.82 },
+    { d: "Aug 3",  impr: 218, clicks: 18, cost: 4.42 },
+    { d: "Aug 4",  impr: 151, clicks: 5,  cost: 3.20 },
+    { d: "Aug 5",  impr: 209, clicks: 14, cost: 4.13 },
+    { d: "Aug 6",  impr: 63,  clicks: 8,  cost: 3.12 },
+    { d: "Aug 7",  impr: 317, clicks: 15, cost: 4.63 },
+    { d: "Aug 8",  impr: 302, clicks: 10, cost: 4.31 },
+    { d: "Aug 9",  impr: 153, clicks: 7,  cost: 3.28 }
+  ];
+
+  var hours = [4,1,0,0,0,0,3,5,5,11,27,32,54,38,31,36,22,25,21,16,13,4,1,3];
+
+  var dow = [
+    { k: "Sun", v: 14.6 }, { k: "Mon", v: 11.8 }, { k: "Tue", v: 9.5 },
+    { k: "Wed", v: 13.5 }, { k: "Thu", v: 9.8 },  { k: "Fri", v: 11.0 },
+    { k: "Sat", v: 11.4 }
+  ];
+
+  var actions = [
+    { k: "Site engagement", v: 892 },
+    { k: "Menu views",      v: 105 },
+    { k: "Directions",      v: 77 },
+    { k: "Website visits",  v: 28 },
+    { k: "Taps to call",    v: 16 },
+    { k: "Calls from ads",  v: 12 },
+    { k: "Order starts",    v: 9 }
+  ];
+
+  var impShare = [
+    { k: "Your ad showed",   v: 17.0 },
+    { k: "Lost to ad rank",  v: 56.5 },
+    { k: "Lost to budget",   v: 26.5 }
+  ];
+
+  /* ---------------- helpers ---------------- */
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+
+  function el(name, attrs) {
+    var n = document.createElementNS(SVGNS, name);
+    if (attrs) {
+      for (var k in attrs) {
+        if (Object.prototype.hasOwnProperty.call(attrs, k)) n.setAttribute(k, attrs[k]);
+      }
+    }
+    return n;
+  }
+
+  function fmt(n) { return n.toLocaleString("en-US"); }
+
+  /* max that divides into `ticks` whole, round steps — so no 18.75 axis labels */
+  function niceMax(v, ticks) {
+    ticks = ticks || 4;
+    var raw = v / ticks;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var steps = [1, 2, 2.5, 5, 10];
+    for (var i = 0; i < steps.length; i++) {
+      var step = steps[i] * mag;
+      if (step >= raw) return step * ticks;
+    }
+    return 10 * mag * ticks;
+  }
+
+  /* rounded rect with only the two "data end" corners rounded */
+  function barPathV(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h);
+    if (h <= 0.5) return "M" + x + " " + (y + h) + " h" + w;
+    return "M" + x + " " + (y + h) +
+           " V" + (y + r) +
+           " a" + r + " " + r + " 0 0 1 " + r + " " + (-r) +
+           " h" + (w - 2 * r) +
+           " a" + r + " " + r + " 0 0 1 " + r + " " + r +
+           " V" + (y + h) + " Z";
+  }
+
+  function barPathH(x, y, w, h, r) {
+    r = Math.min(r, h / 2, w);
+    if (w <= 0.5) return "M" + x + " " + y + " v" + h;
+    return "M" + x + " " + y +
+           " H" + (x + w - r) +
+           " a" + r + " " + r + " 0 0 1 " + r + " " + r +
+           " v" + (h - 2 * r) +
+           " a" + r + " " + r + " 0 0 1 " + (-r) + " " + r +
+           " H" + x + " Z";
+  }
+
+  function mkTip(hostId, tipId) {
+    var host = document.getElementById(hostId);
+    var tip = document.getElementById(tipId);
+    return {
+      show: function (html, cx, cy) {
+        tip.innerHTML = html;
+        tip.classList.add("on");
+        var hb = host.getBoundingClientRect();
+        var tb = tip.getBoundingClientRect();
+        var left = cx - tb.width / 2;
+        left = Math.max(2, Math.min(left, hb.width - tb.width - 2));
+        var top = cy - tb.height - 10;
+        if (top < 0) top = cy + 14;
+        tip.style.left = left + "px";
+        tip.style.top = top + "px";
+      },
+      hide: function () { tip.classList.remove("on"); }
+    };
+  }
+
+  /* px position of an svg user-space point inside the host box */
+  function toHostPx(hostEl, svg, W, H) {
+    var r = svg.getBoundingClientRect();
+    return function (ux, uy) {
+      return { x: (ux / W) * r.width, y: (uy / H) * r.height };
+    };
+  }
+
+  /* ---------------- small-multiple area chart ---------------- */
+
+  function areaChart(hostId, tipId, key, unitLabel) {
+    var host = document.getElementById(hostId);
+    var tip = mkTip(hostId, tipId);
+
+    var W = 480, H = 210;
+    var m = { t: 20, r: 12, b: 34, l: 40 };
+    var iw = W - m.l - m.r;
+    var ih = H - m.t - m.b;
+
+    var vals = daily.map(function (d) { return d[key]; });
+    var max = niceMax(Math.max.apply(null, vals), 4);
+
+    var svg = el("svg", {
+      viewBox: "0 0 " + W + " " + H,
+      role: "img",
+      "aria-label": unitLabel + " per day, July 11 to August 9, 2026"
+    });
+
+    var x = function (i) { return m.l + (iw * i) / (daily.length - 1); };
+    var y = function (v) { return m.t + ih - (ih * v) / max; };
+
+    /* gridlines + y ticks */
+    var TICKS = 4;
+    for (var t = 0; t <= TICKS; t++) {
+      var v = (max / TICKS) * t;
+      var gy = y(v);
+      svg.appendChild(el("line", {
+        class: t === 0 ? "baseline" : "gridline",
+        x1: m.l, x2: m.l + iw, y1: gy, y2: gy
+      }));
+      var lab = el("text", { class: "tick", x: m.l - 8, y: gy + 3.5, "text-anchor": "end" });
+      lab.textContent = v >= 1000 ? (v / 1000) + "k" : String(v);
+      svg.appendChild(lab);
+    }
+
+    /* area + line */
+    var lineD = "", areaD = "";
+    daily.forEach(function (d, i) {
+      var px = x(i), py = y(d[key]);
+      lineD += (i === 0 ? "M" : "L") + px + " " + py + " ";
+    });
+    areaD = lineD + "L" + x(daily.length - 1) + " " + y(0) + " L" + x(0) + " " + y(0) + " Z";
+
+    svg.appendChild(el("path", { class: "mark-soft", d: areaD }));
+    svg.appendChild(el("path", { class: "mark-line", d: lineD }));
+
+    /* x ticks: first, middle, last */
+    [[0, "start"], [Math.floor(daily.length / 2), "middle"], [daily.length - 1, "end"]].forEach(function (p) {
+      var tx = el("text", {
+        class: "tick", x: x(p[0]), y: m.t + ih + 17, "text-anchor": p[1]
+      });
+      tx.textContent = daily[p[0]].d;
+      svg.appendChild(tx);
+    });
+
+    /* interaction layer */
+    var ch = el("line", { class: "crosshair", y1: m.t, y2: m.t + ih });
+    svg.appendChild(ch);
+    var focus = el("circle", { class: "dot-focus", r: 4.5 });
+    svg.appendChild(focus);
+
+    var hit = el("rect", { class: "hit", x: m.l, y: m.t, width: iw, height: ih });
+    svg.appendChild(hit);
+
+    host.insertBefore(svg, host.firstChild);
+
+    function nearest(evt) {
+      var r = svg.getBoundingClientRect();
+      var ux = ((evt.clientX - r.left) / r.width) * W;
+      var i = Math.round(((ux - m.l) / iw) * (daily.length - 1));
+      return Math.max(0, Math.min(daily.length - 1, i));
+    }
+
+    function move(evt) {
+      var i = nearest(evt);
+      var d = daily[i];
+      var ux = x(i), uy = y(d[key]);
+      ch.setAttribute("x1", ux); ch.setAttribute("x2", ux);
+      ch.classList.add("on");
+      focus.setAttribute("cx", ux); focus.setAttribute("cy", uy);
+      focus.classList.add("on");
+      var conv = toHostPx(host, svg, W, H);
+      var p = conv(ux, uy);
+      tip.show("<strong>" + d.d + "</strong><br>" + fmt(d[key]) + " " + unitLabel.toLowerCase(), p.x, p.y);
+    }
+
+    function leave() {
+      ch.classList.remove("on");
+      focus.classList.remove("on");
+      tip.hide();
+    }
+
+    hit.addEventListener("mousemove", move);
+    hit.addEventListener("mouseleave", leave);
+    hit.addEventListener("touchmove", function (e) {
+      if (e.touches && e.touches[0]) move(e.touches[0]);
+    }, { passive: true });
+    hit.addEventListener("touchend", leave);
+  }
+
+  /* ---------------- vertical bars ---------------- */
+
+  function vBars(hostId, tipId, items, opts) {
+    var host = document.getElementById(hostId);
+    var tip = mkTip(hostId, tipId);
+
+    var W = opts.W || 980, H = opts.H || 240;
+    var m = { t: 22, r: 10, b: 38, l: 44 };
+    var iw = W - m.l - m.r;
+    var ih = H - m.t - m.b;
+
+    var max = niceMax(Math.max.apply(null, items.map(function (d) { return d.v; })), 4);
+    var slot = iw / items.length;
+    var GAP = 2;
+    var bw = Math.max(3, Math.min(slot - GAP * 2, opts.maxBar || 1e9));
+
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.aria });
+
+    var y = function (v) { return m.t + ih - (ih * v) / max; };
+
+    var TICKS = 4;
+    for (var t = 0; t <= TICKS; t++) {
+      var v = (max / TICKS) * t;
+      var gy = y(v);
+      svg.appendChild(el("line", {
+        class: t === 0 ? "baseline" : "gridline", x1: m.l, x2: m.l + iw, y1: gy, y2: gy
+      }));
+      var lab = el("text", { class: "tick", x: m.l - 8, y: gy + 3.5, "text-anchor": "end" });
+      lab.textContent = String(v);
+      svg.appendChild(lab);
+    }
+
+    /* anchored inside the plot area so long labels can't spill out of the figure */
+    var ylab = el("text", { class: "axis-label", x: m.l, y: m.t - 8, "text-anchor": "start" });
+    ylab.textContent = opts.yLabel;
+    svg.appendChild(ylab);
+
+    var peak = Math.max.apply(null, items.map(function (d) { return d.v; }));
+
+    items.forEach(function (d, i) {
+      var bx = m.l + slot * i + (slot - bw) / 2;
+      var by = y(d.v);
+      var bh = m.t + ih - by;
+
+      svg.appendChild(el("path", { class: "mark", d: barPathV(bx, by, bw, bh, 4) }));
+
+      if (opts.labelEvery && (i % opts.labelEvery === 0)) {
+        var xt = el("text", {
+          class: "tick", x: bx + bw / 2, y: m.t + ih + 16, "text-anchor": "middle"
+        });
+        xt.textContent = d.k;
+        svg.appendChild(xt);
+      }
+
+      /* direct-label the peak only */
+      if (d.v === peak) {
+        var dl = el("text", {
+          class: "dlabel", x: bx + bw / 2, y: by - 7, "text-anchor": "middle"
+        });
+        dl.textContent = opts.peakFmt ? opts.peakFmt(d.v) : fmt(d.v);
+        svg.appendChild(dl);
+      }
+
+      var hit = el("rect", { class: "hit", x: m.l + slot * i, y: m.t, width: slot, height: ih });
+      hit.addEventListener("mouseenter", function () {
+        var conv = toHostPx(host, svg, W, H);
+        var p = conv(bx + bw / 2, by);
+        tip.show("<strong>" + d.full + "</strong><br>" +
+                 (opts.tipFmt ? opts.tipFmt(d) : fmt(d.v) + " " + opts.unit), p.x, p.y);
+      });
+      hit.addEventListener("mouseleave", tip.hide);
+      svg.appendChild(hit);
+    });
+
+    host.insertBefore(svg, host.firstChild);
+  }
+
+  /* ---------------- horizontal bars ---------------- */
+
+  function hBars(hostId, tipId, items, opts) {
+    var host = document.getElementById(hostId);
+    var tip = mkTip(hostId, tipId);
+
+    var rowH = opts.rowH || 30;
+    var GAP = 2;
+    var W = 480;
+    var m = { t: 6, r: 58, b: 6, l: opts.labelW || 118 };
+    var H = m.t + m.b + items.length * rowH;
+    var iw = W - m.l - m.r;
+    var barH = Math.min(rowH - GAP * 2, opts.maxBar || 1e9);
+
+    var max = niceMax(Math.max.apply(null, items.map(function (d) { return d.v; })), 4);
+
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.aria });
+
+    svg.appendChild(el("line", {
+      class: "baseline", x1: m.l, x2: m.l, y1: m.t, y2: m.t + items.length * rowH
+    }));
+
+    items.forEach(function (d, i) {
+      var bh = barH;
+      var by = m.t + rowH * i + (rowH - bh) / 2;
+      var bw = Math.max(1, (iw * d.v) / max);
+
+      svg.appendChild(el("path", { class: "mark", d: barPathH(m.l, by, bw, bh, 4) }));
+
+      var kt = el("text", {
+        class: "tick", x: m.l - 9, y: by + bh / 2 + 3.5, "text-anchor": "end"
+      });
+      kt.textContent = d.k;
+      svg.appendChild(kt);
+
+      var vt = el("text", {
+        class: "dlabel", x: m.l + bw + 8, y: by + bh / 2 + 4, "text-anchor": "start"
+      });
+      vt.textContent = opts.valueFmt ? opts.valueFmt(d.v) : fmt(d.v);
+      svg.appendChild(vt);
+
+      var hit = el("rect", { class: "hit", x: 0, y: m.t + rowH * i, width: W, height: rowH });
+      hit.addEventListener("mouseenter", function () {
+        var conv = toHostPx(host, svg, W, H);
+        var p = conv(m.l + bw / 2, by);
+        tip.show("<strong>" + (d.full || d.k) + "</strong><br>" +
+                 (opts.tipFmt ? opts.tipFmt(d) : fmt(d.v) + " " + opts.unit), p.x, p.y);
+      });
+      hit.addEventListener("mouseleave", tip.hide);
+      svg.appendChild(hit);
+    });
+
+    host.insertBefore(svg, host.firstChild);
+  }
+
+  /* ---------------- build ---------------- */
+
+  areaChart("host-impr", "tip-impr", "impr", "Impressions");
+  areaChart("host-clicks", "tip-clicks", "clicks", "Clicks");
+
+  vBars("host-hours", "tip-hours", hours.map(function (v, h) {
+    var h12 = (h % 12 === 0) ? 12 : h % 12;
+    var ap = h < 12 ? "am" : "pm";
+    return { k: h12 + ap, full: h12 + ":00" + ap, v: v };
+  }), {
+    W: 980, H: 250, yLabel: "CLICKS", unit: "clicks",
+    labelEvery: 2, maxBar: 24,
+    aria: "Clicks by hour of day, peaking at 54 clicks at noon"
+  });
+
+  vBars("host-dow", "tip-dow", dow.map(function (d) {
+    return { k: d.k, full: d.k, v: d.v };
+  }), {
+    W: 480, H: 220, yLabel: "AVG CLICKS / DAY", unit: "clicks per day",
+    labelEvery: 1, maxBar: 26,
+    peakFmt: function (v) { return v.toFixed(1); },
+    tipFmt: function (d) { return d.v.toFixed(1) + " clicks per day"; },
+    aria: "Average clicks per day by day of week, highest on Sunday"
+  });
+
+  hBars("host-actions", "tip-actions", actions.map(function (d) {
+    return { k: d.k, full: d.k, v: d.v };
+  }), {
+    rowH: 30, labelW: 118, unit: "actions", maxBar: 17,
+    aria: "Breakdown of 1139 follow-up actions, led by site engagement"
+  });
+
+  hBars("host-is", "tip-is", impShare.map(function (d) {
+    return { k: d.k, full: d.k, v: d.v };
+  }), {
+    rowH: 44, labelW: 128, maxBar: 22,
+    valueFmt: function (v) { return v.toFixed(1) + "%"; },
+    tipFmt: function (d) { return d.v.toFixed(1) + "% of available searches"; },
+    aria: "Share of available local searches: showed 17 percent, lost 56.5 percent to ad rank, 26.5 percent to budget"
+  });
+
+  /* daily table */
+  var tb = document.querySelector("#daily-table tbody");
+  daily.forEach(function (d) {
+    var tr = document.createElement("tr");
+    var th = document.createElement("th");
+    th.setAttribute("scope", "row");
+    th.textContent = d.d;
+    tr.appendChild(th);
+    [fmt(d.impr), fmt(d.clicks), ((d.clicks / d.impr) * 100).toFixed(2) + "%", "$" + d.cost.toFixed(2)]
+      .forEach(function (v) {
+        var td = document.createElement("td");
+        td.className = "num";
+        td.textContent = v;
+        tr.appendChild(td);
+      });
+    tb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>
