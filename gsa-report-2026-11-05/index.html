@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mofongos · Google Search Ads Update, November 2026</title>
+<style>
+  :root {
+    --navy:            #001f52;
+    --navy-deep:       #000a1f;
+    --heading-navy:    #0a2540;
+    --brand-blue:      #1B51A4;
+    --accent-blue:     #3B82F6;
+    --accent-cyan:     #06B6D4;
+
+    --ink:             #0a1628;
+    --ink-body:        #3b4563;
+    --ink-muted:       #6b7a99;
+    --ink-subtle:      #8b95ad;
+
+    --surface:         #ffffff;
+    --surface-raised:  #f8f9fc;
+    --surface-cool:    #f0f3fa;
+
+    --border:          #e2e8f0;
+    --border-subtle:   #eef2f7;
+
+    --series:          #1B51A4;
+    --series-soft:     rgba(27, 81, 164, 0.13);
+    --grid:            #e8edf6;
+
+    --good:            #1d7a44;
+    --good-bg:         #e7f4ec;
+    --watch:           #9a6207;
+    --watch-bg:        #fdf4e3;
+
+    --font-head: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --chart-surface:   #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink-body);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-head);
+    color: var(--heading-navy);
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    background: linear-gradient(165deg, #020817 0%, #001131 35%, #001f52 68%, #0c2d6b 100%);
+    padding: 56px 32px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .masthead::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .masthead-orb {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    right: -180px;
+    top: -280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.16) 0%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .masthead-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #38bdf8;
+    margin: 0 0 14px;
+  }
+
+  .masthead h1 {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    margin-bottom: 18px;
+  }
+
+  .masthead .standfirst {
+    color: #b4c6e0;
+    font-size: 1.08rem;
+    max-width: 640px;
+    margin: 0 0 30px;
+  }
+
+  .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255,255,255,0.11);
+  }
+
+  .meta-item .k {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 3px;
+  }
+
+  .meta-item .v {
+    font-size: 14px;
+    color: #dce6f5;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- shell ---------- */
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px 96px;
+  }
+
+  section { padding-top: 68px; }
+  section.tight { padding-top: 52px; }
+
+  .sec-head { margin-bottom: 30px; }
+
+  .sec-head .eyebrow { color: var(--accent-blue); }
+
+  .sec-head h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 10px;
+  }
+
+  .sec-head p {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 68ch;
+  }
+
+  h3 {
+    font-size: 1.16rem;
+    font-weight: 700;
+    line-height: 1.32;
+    margin-bottom: 8px;
+  }
+
+  p { margin: 0 0 1em; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ---------- kpi band ---------- */
+
+  .kpi-band {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: -34px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  }
+
+  .kpi {
+    background: var(--surface);
+    padding: 24px 22px 22px;
+  }
+
+  .kpi .label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-subtle);
+    margin-bottom: 10px;
+  }
+
+  .kpi .value {
+    font-family: var(--font-head);
+    font-size: 2.1rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kpi .value .unit {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .kpi .sub {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-top: 9px;
+    line-height: 1.45;
+  }
+
+  .delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta.up { color: var(--good); background: var(--good-bg); }
+  .delta.watch { color: var(--watch); background: var(--watch-bg); }
+
+  /* ---------- prose + callouts ---------- */
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--ink-body);
+    max-width: 68ch;
+  }
+
+  .note {
+    border-left: 3px solid var(--brand-blue);
+    padding: 4px 0 4px 18px;
+    color: var(--ink-body);
+    margin: 22px 0;
+    max-width: 66ch;
+  }
+
+  .note strong { color: var(--heading-navy); }
+
+  .note.watch { border-left-color: #d69a1e; }
+
+  /* ---------- win cards ---------- */
+
+  .wins {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .win {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0 0 22px;
+    overflow: hidden;
+  }
+
+  .win .bar {
+    height: 3px;
+    background: linear-gradient(135deg, #1B51A4, #3B82F6, #06B6D4);
+  }
+
+  .win .body { padding: 20px 22px 0; }
+
+  .win .stat {
+    font-family: var(--font-head);
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .win h3 { margin-bottom: 7px; }
+
+  .win p {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* ---------- figures ---------- */
+
+  figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px 18px;
+  }
+
+  figcaption { margin-bottom: 4px; }
+
+  figcaption .title {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--heading-navy);
+    line-height: 1.35;
+  }
+
+  figcaption .desc {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    max-width: 74ch;
+  }
+
+  .chart-host { margin-top: 16px; position: relative; }
+  .chart-host svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  .smalls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .axis-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    fill: var(--ink-subtle);
+    font-family: var(--font-body);
+  }
+
+  .tick {
+    font-size: 10.5px;
+    fill: var(--ink-subtle);
+    font-family: var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .baseline { stroke: var(--border); stroke-width: 1; }
+
+  .mark { fill: var(--series); }
+  .mark-soft { fill: var(--series-soft); }
+  .mark-line { fill: none; stroke: var(--series); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+  .dlabel {
+    font-size: 11.5px;
+    font-weight: 700;
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hit { fill: transparent; cursor: default; }
+
+  .tip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--heading-navy);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.45;
+    padding: 7px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 120ms;
+    z-index: 5;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  }
+
+  .tip.on { opacity: 1; }
+
+  .crosshair { stroke: var(--ink-subtle); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+  .crosshair.on { opacity: 1; }
+
+  .dot-focus {
+    fill: var(--series);
+    stroke: var(--chart-surface);
+    stroke-width: 2;
+    opacity: 0;
+  }
+  .dot-focus.on { opacity: 1; }
+
+  /* ---------- tables ---------- */
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 520px;
+  }
+
+  caption {
+    text-align: left;
+    font-family: var(--font-head);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--heading-navy);
+    padding-bottom: 10px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  thead th {
+    background: var(--surface-raised);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.num, th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-weight: 600;
+    color: var(--heading-navy);
+    font-size: 14px;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .pill.brand   { color: #14507c; background: #e3f0fa; }
+  .pill.intent  { color: var(--good); background: var(--good-bg); }
+  .pill.broad   { color: var(--ink-muted); background: var(--surface-cool); }
+  .pill.off     { color: var(--watch); background: var(--watch-bg); }
+
+  details.data-view {
+    margin-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 12px;
+  }
+
+  details.data-view summary {
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--brand-blue);
+    list-style: none;
+  }
+
+  details.data-view summary::-webkit-details-marker { display: none; }
+  details.data-view summary::before { content: "▸ "; }
+  details.data-view[open] summary::before { content: "▾ "; }
+  details.data-view summary:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; border-radius: 4px; }
+  details.data-view .table-wrap { margin-top: 12px; }
+
+  /* ---------- plan ---------- */
+
+  .plan {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .plan-row {
+    display: grid;
+    grid-template-columns: 44px 1fr 108px;
+    gap: 20px;
+    align-items: start;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .plan-row:last-child { border-bottom: none; }
+  .plan-row:nth-child(odd) { background: var(--surface-raised); }
+
+  .plan-row .n {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #001f52, #1B51A4);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .plan-row h3 { font-size: 1.02rem; margin-bottom: 5px; }
+  .plan-row .detail { font-size: 14px; color: var(--ink-muted); }
+  .plan-row .prio { text-align: right; padding-top: 3px; }
+
+  .prio .pill.high { color: #9a2231; background: #fbe9ec; }
+  .prio .pill.med  { color: var(--watch); background: var(--watch-bg); }
+  .prio .pill.done { color: var(--good); background: var(--good-bg); }
+
+  .plan-row.is-done .n { background: linear-gradient(135deg, #14663a, #1d7a44); }
+
+  /* ---------- signature ---------- */
+
+  .sign {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 68px;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface-raised);
+  }
+
+  .sign .who {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--heading-navy);
+    font-size: 15px;
+  }
+
+  .sign .role { font-size: 13.5px; color: var(--ink-muted); }
+  .sign .src  { font-size: 12.5px; color: var(--ink-subtle); text-align: right; }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding-top: 26px;
+    font-size: 12.5px;
+    color: var(--ink-subtle);
+    max-width: 78ch;
+  }
+
+  footer p { margin-bottom: 0.6em; }
+
+  a { color: var(--brand-blue); }
+  a:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; border-radius: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  @media (max-width: 900px) {
+    .kpi-band { grid-template-columns: repeat(2, 1fr); }
+    .wins { grid-template-columns: 1fr; }
+    .smalls { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 2.3rem; }
+    .sec-head h2 { font-size: 1.65rem; }
+    main, .masthead { padding-left: 22px; padding-right: 22px; }
+    .plan-row { grid-template-columns: 36px 1fr; gap: 14px; }
+    .plan-row .prio { grid-column: 2; text-align: left; padding-top: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .kpi-band { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 1.95rem; }
+  }
+</style>
+<style>
+  /* ---------- additions for the November update ---------- */
+
+  .kpi .then {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-top: 9px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta.down { color: #9a2231; background: #fbe9ec; }
+
+  .share {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+  }
+
+  .share-row { margin-bottom: 18px; }
+  .share-row:last-of-type { margin-bottom: 14px; }
+
+  .share-row .lbl {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--heading-navy);
+    margin-bottom: 6px;
+  }
+
+  .stack {
+    display: flex;
+    height: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    gap: 2px;
+    background: var(--surface);
+  }
+
+  .stack span {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .seg-won    { background: #1B51A4; color: #fff; }
+  .seg-rank   { background: #c9d6ec; color: var(--heading-navy); }
+  .seg-budget { background: #f2c66d; color: #4a3203; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+  }
+
+  .legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: -1px;
+  }
+
+  .mark-hot { fill: #d69a1e; }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .group {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .group .bar {
+    height: 3px;
+    background: linear-gradient(135deg, #1B51A4, #3B82F6, #06B6D4);
+  }
+
+  .group .body { padding: 20px 22px 22px; }
+
+  .group .who-for {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+  }
+
+  .group p { font-size: 14px; color: var(--ink-muted); }
+
+  .adline {
+    font-family: var(--font-head);
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #1a0dab;
+    margin: 12px 0 2px;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+  .tags span {
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--surface-cool);
+    color: var(--heading-navy);
+  }
+
+  .prio .pill.ask { color: #14507c; background: #e3f0fa; }
+
+  .plan-row.is-ask .n { background: linear-gradient(135deg, #b07a12, #d69a1e); }
+
+  .cost-line {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--heading-navy);
+    background: var(--surface-cool);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 900px) {
+    .groups { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stack span, .group .bar, .plan-row .n { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-orb"></div>
+  <div class="masthead-inner">
+    <p class="eyebrow">Google Search Ads &middot; November Update</p>
+    <h1>Putting mofongo in front of people<br>who have never tried it.</h1>
+    <p class="standfirst">
+      Your ads have been reaching mostly the people who already know Mofongos. This month we
+      rebuilt the campaign so new guests searching for something different to eat find you too.
+      Below is what we changed, why, and one decision we need from you.
+    </p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="k">Location</span>
+        <span class="v">North Hollywood, CA</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Compared</span>
+        <span class="v">Jul 11 &ndash; Aug 9 vs. Oct 6 &ndash; Nov 4, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Changes made</span>
+        <span class="v">Nov 5, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">Previous review</span>
+        <span class="v"><a href="../gsa-report-2026-08-10/" style="color:#dce6f5;">Aug 10, 2026</a></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-band">
+    <div class="kpi">
+      <div class="label">Ad spend, 30 days</div>
+      <div class="value"><span class="unit">$</span>97.82</div>
+      <div class="then">August review: $100.90</div>
+    </div>
+    <div class="kpi">
+      <div class="label">People who saw you</div>
+      <div class="value">5,169</div>
+      <div class="then">August review: 5,852</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Visits to your ordering page</div>
+      <div class="value">300</div>
+      <div class="then">August review: 352 &middot; now $0.33 per visit</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Share of local searches won</div>
+      <div class="value">19.9<span class="unit">%</span></div>
+      <div class="then"><span class="delta up">&#9650; from 16.9%</span></div>
+    </div>
+    <div class="kpi">
+      <div class="label">Missed because budget ran out</div>
+      <div class="value">29.5<span class="unit">%</span></div>
+      <div class="then"><span class="delta down">&#9650; from 26.7%</span></div>
+    </div>
+    <div class="kpi">
+      <div class="label">Calls from your ad</div>
+      <div class="value">10</div>
+      <div class="then">August review: 12 &middot; plus 65 requests for directions</div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <p class="lede">
+      The August changes worked in the direction we wanted: your ad now wins a bigger share of
+      the searches near you, and fewer of them are lost to competing ads. But the share lost
+      because your daily budget ran out has grown, and about a third of the budget still goes to
+      people typing "Mofongos" by name. Those diners were already on their way to you. The
+      people we most want to reach, those searching "caribbean food near me" or "cuban food
+      near me" who have never heard of mofongo, were only being reached by accident.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">What we changed on November 5</p>
+      <h2>Three ads, each written for a different kind of diner</h2>
+      <p>
+        Until now one ad had to answer around 40 different searches, from "mofongos" to
+        "caribbean lunch specials". Google rated most of the keywords it scored 6 out of 10 for
+        relevance, which is a large part of why your ad reached the top of the page only about
+        1 time in 10. Each kind of search now gets an ad that speaks to it directly, and
+        every dish named in these ads is on your online menu today.
+      </p>
+    </div>
+
+    <div class="groups">
+      <div class="group">
+        <div class="bar"></div>
+        <div class="body">
+          <p class="who-for">Discovery &middot; new</p>
+          <h3>People curious about the food</h3>
+          <p>Searches for the dishes themselves, including what mofongo is.</p>
+          <div class="adline">Never Had Mofongo? Start Here</div>
+          <div class="adline">12 Kinds of Mofongo</div>
+          <div class="adline">Coquito by the Bottle</div>
+          <div class="tags">
+            <span>mofongo</span><span>what is mofongo</span><span>tostones</span>
+            <span>alcapurrias</span><span>bacalaitos</span><span>jibarito</span>
+            <span>tripleta</span><span>arroz con gandules</span><span>coquito</span>
+          </div>
+        </div>
+      </div>
+      <div class="group">
+        <div class="bar"></div>
+        <div class="body">
+          <p class="who-for">Explorers &middot; new</p>
+          <h3>People looking for something different</h3>
+          <p>Diners already searching for Caribbean or Cuban food, and visitors near Universal.</p>
+          <div class="adline">Love Cuban? Try Puerto Rican</div>
+          <div class="adline">Something New in NoHo</div>
+          <div class="adline">Just North of Universal City</div>
+          <div class="tags">
+            <span>caribbean food near me</span><span>cuban food near me</span>
+            <span>cuban sandwich near me</span><span>restaurants near universal studios</span>
+            <span>noho arts district restaurants</span><span>latin comfort food</span>
+          </div>
+        </div>
+      </div>
+      <div class="group">
+        <div class="bar"></div>
+        <div class="body">
+          <p class="who-for">Your name &middot; separated out</p>
+          <h3>People who already know you</h3>
+          <p>Kept running so a competitor can't take your name, now with its own ad.</p>
+          <div class="adline">Order Direct From Mofongos</div>
+          <div class="adline">12 Mofongo Specials</div>
+          <div class="adline">Catering Available</div>
+          <div class="tags">
+            <span>mofongos</span><span>mofongos restaurant</span>
+            <span>mofongos north hollywood</span><span>mofongos menu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Why coquito is in there now:</strong> searches for it climb every year from
+      November through the holidays, and you sell it by the bottle. Caribbean searches we
+      paused in August are also back, this time with phrase matching and an ad written for them,
+      rather than sharing the general ad that held their score down.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Also changed on November 5</p>
+      <h2>15 more searches blocked</h2>
+      <p>
+        These searches were showing your ad to people looking for a different cuisine or for
+        nothing in particular. Spanish accents matter here: Google treated "salvadoreño" and the
+        "salvadoreno" we blocked in August as different words, so both are now blocked. Together
+        these took up about 1 in 10 of your impressions over the last 30 days.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">What people searched</th>
+            <th scope="col" class="num">Times your ad showed</th>
+            <th scope="col" class="num">Visits</th>
+            <th scope="col">Now blocked with</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">"restaurants cerca de mi"</th><td class="num">138</td><td class="num">3</td><td>the exact phrase</td></tr>
+          <tr><th scope="row">Vegan searches (3 variations)</th><td class="num">86</td><td class="num">7</td><td>vegan</td></tr>
+          <tr><th scope="row">Colombian and Venezuelan food, in Spanish</th><td class="num">85</td><td class="num">6</td><td>colombiana, colombiano, venezolana</td></tr>
+          <tr><th scope="row">Salvadoran restaurants</th><td class="num">68</td><td class="num">0</td><td>salvadoreño, salvadoran, pupusas</td></tr>
+          <tr><th scope="row">Other cuisines (mariscos, tacos, Armenian, Haitian, Mediterranean)</th><td class="num">62</td><td class="num">3</td><td>each cuisine by name</td></tr>
+          <tr><th scope="row">"comida cerca de mi", "food near me near me"</th><td class="num">53</td><td class="num">0</td><td>the exact phrase</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The evidence for a budget change</p>
+      <h2>Ad quality is improving. The budget is now the bigger limit.</h2>
+      <p>
+        In August we held your budget at $3.30 a day on purpose: most missed searches were lost
+        to ad quality, and spending more before fixing that would have bought more of the same.
+        That has shifted. For every 100 relevant searches near you:
+      </p>
+    </div>
+
+    <div class="share">
+      <div class="share-row">
+        <div class="lbl">August review (Jul 11 &ndash; Aug 9)</div>
+        <div class="stack" role="img" aria-label="August: showed on 16.9 percent, lost 56.3 percent to ad rank, lost 26.7 percent to budget">
+          <span class="seg-won" style="flex:16.9">17</span>
+          <span class="seg-rank" style="flex:56.3">56 lost to ad rank</span>
+          <span class="seg-budget" style="flex:26.7">27 lost to budget</span>
+        </div>
+      </div>
+      <div class="share-row">
+        <div class="lbl">Last 30 days (Oct 6 &ndash; Nov 4)</div>
+        <div class="stack" role="img" aria-label="Last 30 days: showed on 19.9 percent, lost 50.7 percent to ad rank, lost 29.5 percent to budget">
+          <span class="seg-won" style="flex:19.9">20</span>
+          <span class="seg-rank" style="flex:50.7">51 lost to ad rank</span>
+          <span class="seg-budget" style="flex:29.5">30 lost to budget</span>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i style="background:#1B51A4"></i>Your ad showed</span>
+        <span><i style="background:#c9d6ec"></i>A competing ad outranked yours</span>
+        <span><i style="background:#f2c66d"></i>Your day's budget had already run out</span>
+      </div>
+    </div>
+
+    <figure style="margin-top:18px;">
+      <figcaption>
+        <span class="title">Share of each day's searches missed because the budget ran out</span>
+        <span class="desc">On 16 of the last 30 days your budget ran out before demand did. Highlighted days missed half or more of their searches for that reason.</span>
+      </figcaption>
+      <div class="chart-host" id="host-budget">
+        <div class="tip" id="tip-budget"></div>
+      </div>
+    </figure>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Done, and what needs your OK</p>
+      <h2>Three changes made, one decision for you</h2>
+      <p>
+        The first three items cost nothing extra. They change where your current budget goes.
+        The new ads go live as soon as Google finishes its standard review, which usually takes
+        about a business day.
+      </p>
+    </div>
+
+    <div class="plan">
+      <div class="plan-row is-done">
+        <div class="n">&#10003;</div>
+        <div>
+          <h3>Split one ad into three, each matched to its searcher</h3>
+          <div class="detail">
+            Discovery, Explorers and your name each have their own ad and keywords. A closer
+            match between the search and the ad is how Google decides who ranks higher, so this
+            goes straight at the 51% lost to ad rank.
+          </div>
+        </div>
+        <div class="prio"><span class="pill done">Done</span></div>
+      </div>
+      <div class="plan-row is-done">
+        <div class="n">&#10003;</div>
+        <div>
+          <h3>Added 19 new searches for new guests</h3>
+          <div class="detail">
+            Built from your actual menu: your dishes by their Puerto Rican names, and the
+            Caribbean, Cuban and neighborhood searches people use when they want something new.
+            "mofongo" on its own was already your single busiest search last month (24 visits),
+            and it now has its own ad.
+          </div>
+        </div>
+        <div class="prio"><span class="pill done">Done</span></div>
+      </div>
+      <div class="plan-row is-done">
+        <div class="n">&#10003;</div>
+        <div>
+          <h3>Blocked 15 searches that weren't a fit</h3>
+          <div class="detail">
+            Listed in the table above. Blocking them frees up impressions and budget for the
+            searches that are a fit.
+          </div>
+        </div>
+        <div class="prio"><span class="pill done">Done</span></div>
+      </div>
+      <div class="plan-row is-ask">
+        <div class="n">A</div>
+        <div>
+          <h3>Raise the daily budget from $3.30 to $5.00</h3>
+          <div class="detail">
+            30% of the searches you could have won last month were missed only because the day's
+            budget had run out, up from 27% in August, and on 12 days it was half or more. The
+            two new ad groups also share this same budget. At $3.30 they can only reach new
+            guests by taking budget from the searches that already work. At today's average of
+            33&cent; a visit, the extra $1.70 a day pays for roughly five more visits a day.
+            $5.00 is the standard starting budget we recommend for a single-location restaurant.
+            <br><span class="cost-line">About $152 a month, up from about $100 (+$52)</span>
+          </div>
+        </div>
+        <div class="prio"><span class="pill ask">Needs your OK</span></div>
+      </div>
+      <div class="plan-row is-ask">
+        <div class="n">B</div>
+        <div>
+          <h3>Optional: start showing to people searching for Dominican food again</h3>
+          <div class="detail">
+            We blocked Dominican searches in August as a different cuisine. Mofongo is a staple
+            of Dominican cooking too, so someone searching "dominican restaurant near me" may be
+            exactly the new guest you want. In August these visits cost about 10&cent; each. If
+            you'd like, we'll reopen them and report back on what they bring in.
+          </div>
+        </div>
+        <div class="prio"><span class="pill ask">Your call</span></div>
+      </div>
+    </div>
+
+    <div class="note watch">
+      <strong>One thing to know about the numbers:</strong> completed online orders from your ads
+      are not currently being counted in Google Ads, so this update doesn't report sales from
+      the ads. Calls (10) and direction requests (65) are the clearest signals we have right now.
+      The ad sends every click straight to your online ordering page.
+    </div>
+  </section>
+
+  <div class="sign">
+    <div>
+      <div class="who">Jesse Gorin</div>
+      <div class="role">Customer Success Manager, Chowly &middot; jgorin@chowlyinc.com</div>
+    </div>
+    <div class="src">
+      Prepared Nov 5, 2026<br>
+      Source: Google Search Ads
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Prepared by Chowly for Mofongos &middot; November 5, 2026. Figures come directly from the
+      restaurant's Google Ads account. "Last 30 days" is October 6 to November 4, 2026; the
+      August comparison is July 11 to August 9, 2026, the period covered by the previous review.
+    </p>
+    <p>
+      "Share of local searches won" is Google's search impression share: of the searches in your
+      area your ad was eligible for, the share where it actually appeared. Google reports the
+      missed share in two parts, lost to ad rank and lost to budget, and estimates both. The
+      monthly budget figures use Google's average of 30.4 days a month. Visit estimates assume
+      today's average cost per visit holds, which can change as the new ads settle in.
+    </p>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var days = [
+    ["Oct 6", 0], ["Oct 7", 1.2], ["Oct 8", 6.7], ["Oct 9", 0], ["Oct 10", 51.9],
+    ["Oct 11", 73.1], ["Oct 12", 0], ["Oct 13", 73.0], ["Oct 14", 72.1], ["Oct 15", 51.6],
+    ["Oct 16", 56.3], ["Oct 17", 55.1], ["Oct 18", 1.6], ["Oct 19", 3.7], ["Oct 20", 0],
+    ["Oct 21", 0], ["Oct 22", 5.3], ["Oct 23", 77.6], ["Oct 24", 62.1], ["Oct 25", 26.7],
+    ["Oct 26", 21.2], ["Oct 27", 19.0], ["Oct 28", 0], ["Oct 29", 37.5], ["Oct 30", 50.0],
+    ["Oct 31", 14.3], ["Nov 1", 42.9], ["Nov 2", 50.0], ["Nov 3", 0], ["Nov 4", 55.1]
+  ];
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(n, a) {
+    var e = document.createElementNS(NS, n);
+    for (var k in a) { if (Object.prototype.hasOwnProperty.call(a, k)) e.setAttribute(k, a[k]); }
+    return e;
+  }
+
+  var host = document.getElementById("host-budget");
+  var tip = document.getElementById("tip-budget");
+  var W = 980, H = 250, m = { t: 22, r: 10, b: 38, l: 44 };
+  var iw = W - m.l - m.r, ih = H - m.t - m.b, max = 100;
+  var slot = iw / days.length, bw = Math.min(slot - 4, 24);
+  var y = function (v) { return m.t + ih - (ih * v) / max; };
+
+  var svg = el("svg", {
+    viewBox: "0 0 " + W + " " + H, role: "img",
+    "aria-label": "Daily share of searches missed because the budget ran out, October 6 to November 4. 16 of 30 days were above 20 percent."
+  });
+
+  [0, 25, 50, 75, 100].forEach(function (v, i) {
+    svg.appendChild(el("line", { "class": i === 0 ? "baseline" : "gridline", x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v) }));
+    var t = el("text", { "class": "tick", x: m.l - 8, y: y(v) + 3.5, "text-anchor": "end" });
+    t.textContent = v + "%";
+    svg.appendChild(t);
+  });
+
+  days.forEach(function (d, i) {
+    var bx = m.l + slot * i + (slot - bw) / 2, by = y(d[1]), bh = m.t + ih - by;
+    if (bh > 0.5) {
+      var r = Math.min(4, bw / 2, bh);
+      var p = "M" + bx + " " + (by + bh) + " V" + (by + r) +
+              " a" + r + " " + r + " 0 0 1 " + r + " " + (-r) + " h" + (bw - 2 * r) +
+              " a" + r + " " + r + " 0 0 1 " + r + " " + r + " V" + (by + bh) + " Z";
+      svg.appendChild(el("path", { "class": d[1] >= 50 ? "mark-hot" : "mark", d: p }));
+    }
+    if (i % 5 === 0) {
+      var xt = el("text", { "class": "tick", x: bx + bw / 2, y: m.t + ih + 16, "text-anchor": "middle" });
+      xt.textContent = d[0];
+      svg.appendChild(xt);
+    }
+    var hit = el("rect", { "class": "hit", x: m.l + slot * i, y: m.t, width: slot, height: ih });
+    hit.addEventListener("mouseenter", function () {
+      var rb = svg.getBoundingClientRect(), hb = host.getBoundingClientRect();
+      tip.innerHTML = "<strong>" + d[0] + "</strong><br>" + d[1].toFixed(1) + "% missed, budget ran out";
+      tip.classList.add("on");
+      var tb = tip.getBoundingClientRect();
+      var cx = ((bx + bw / 2) / W) * rb.width, cy = (by / H) * rb.height;
+      var left = Math.max(2, Math.min(cx - tb.width / 2, hb.width - tb.width - 2));
+      var top = cy - tb.height - 10;
+      if (top < 0) top = cy + 14;
+      tip.style.left = left + "px";
+      tip.style.top = top + "px";
+    });
+    hit.addEventListener("mouseleave", function () { tip.classList.remove("on"); });
+    svg.appendChild(hit);
+  });
+
+  host.insertBefore(svg, host.firstChild);
+})();
+</script>
+</body>
+</html>
